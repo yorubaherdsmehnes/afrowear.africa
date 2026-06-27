@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-forest:     #1A2421;
+  --color-terracotta: #CA6143;
+  --color-sand:       #E5D3B3;
+  --color-linen:      #F0E6D3;
+  --color-charcoal:   #2C2C2C;
+}
+
+html {
+  background-color: var(--color-forest);
+  color: var(--color-sand);
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

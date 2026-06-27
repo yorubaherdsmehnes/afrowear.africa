@@ -1,12 +1,13 @@
 'use client'
 import { useState } from 'react'
 import FormProgress from './FormProgress'
-import StepName    from './StepName'
-import StepPhone from './StepPhone'
-import StepVision  from './StepVision'
-import Button      from '@/components/ui/Button'
+import StepName     from './StepName'
+import StepPhone    from './StepPhone'
+import StepVision   from './StepVision'
+import Button       from '@/components/ui/Button'
 import { isValidName, isValidPhoneNumber, isValidVision } from '@/components/form/validation'
 import type { FormStep } from '@/types'
+import { trackGenerateLead } from '@/lib/analytics' // <-- Premium Tracking Import
 
 interface Props {
   currentStep: FormStep
@@ -14,12 +15,12 @@ interface Props {
 }
 
 export default function ConciergeForm({ currentStep, onStepChange }: Props) {
-  const [name,           setName]           = useState('')
-  const [contactNumber,  setContactNumber]  = useState('')
-  const [vision,         setVision]         = useState('')
-  const [website,        setWebsite]        = useState('') // honeypot — left blank by real users
-  const [isLoading,      setIsLoading]      = useState(false)
-  const [error,          setError]          = useState('')
+  const [name,          setName]          = useState('')
+  const [contactNumber, setContactNumber] = useState('')
+  const [vision,        setVision]        = useState('')
+  const [website,       setWebsite]       = useState('') 
+  const [isLoading,     setIsLoading]     = useState(false)
+  const [error,         setError]         = useState('')
 
   const stepIndex = currentStep === 'name' ? 1 : currentStep === 'phone' ? 2 : 3
 
@@ -34,10 +35,14 @@ export default function ConciergeForm({ currentStep, onStepChange }: Props) {
           full_name: name,
           contact_number: contactNumber,
           vision,
-          website, // honeypot — server silently drops the submission if this is filled
+          website, 
         }),
       })
       if (!res.ok) throw new Error()
+      
+      // GA4: High-Value Lead Tracked! 
+      trackGenerateLead('commission_request')
+      
       onStepChange('success')
     } catch {
       setError('Something went wrong. Please try again.')
@@ -50,7 +55,6 @@ export default function ConciergeForm({ currentStep, onStepChange }: Props) {
     <div className="flex flex-col gap-8 w-full">
       <FormProgress current={stepIndex} total={3} />
 
-      {/* Honeypot — visually hidden off-screen, never display:none (bots see through that) */}
       <div
         className="absolute -left-[9999px] top-auto w-px h-px overflow-hidden"
         aria-hidden="true"

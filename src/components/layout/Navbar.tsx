@@ -1,8 +1,7 @@
-"use client";
+'use client';
 import Link from "next/link";
-// Sticky nav: wordmark left, "Find Your Style" button right
-// Transparent over the hero; gains a solid background once scrolled past it
 import { useEffect, useState } from "react";
+import { sendGAEvent } from "@next/third-parties/google"; // <-- Premium Tracking Import
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -25,6 +24,14 @@ export default function Navbar() {
       </Link>
       <a
         href="/#discover"
+        onClick={() => {
+          // GA4: Track CTA Intent
+          sendGAEvent('event', 'select_content', { 
+            content_type: 'cta', 
+            item_id: 'Find Your Style', 
+            location: 'Desktop Navbar' 
+          })
+        }}
         className="hidden md:inline-flex font-sans text-xs uppercase tracking-widest border border-terracotta text-terracotta px-5 py-2 hover:bg-terracotta hover:text-linen transition-colors"
       >
         Find Your Style

@@ -120,7 +120,7 @@ export default function Discover({
             ) : (
               <>
                 <p className="font-sans text-xs tracking-widest uppercase text-terracotta mb-4">
-                  Know Your Style
+                  Find Your Style
                 </p>
                 <p className="font-sans text-sm text-sand/55 leading-relaxed max-w-xl">
                   Five questions. No wrong answers. Move each slider, see your

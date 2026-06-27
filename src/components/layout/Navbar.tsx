@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-// Sticky nav: wordmark left, "Commission a Piece" button right
+// Sticky nav: wordmark left, "Find Your Style" button right
 // Transparent over the hero; gains a solid background once scrolled past it
 import { useEffect, useState } from "react";
 
@@ -24,10 +24,10 @@ export default function Navbar() {
         afrowear.africa
       </Link>
       <a
-        href="#commission"
+        href="/#discover"
         className="hidden md:inline-flex font-sans text-xs uppercase tracking-widest border border-terracotta text-terracotta px-5 py-2 hover:bg-terracotta hover:text-linen transition-colors"
       >
-        Commission a Piece
+        Find Your Style
       </a>
     </nav>
   );

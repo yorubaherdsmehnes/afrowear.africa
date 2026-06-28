@@ -1,6 +1,9 @@
 "use client";
 
-// PersonaCard.tsx — grid tile for Explore mode
+// PersonaCard.tsx — grid tile for Explore mode, also used in Discover's live reveal
+// `variant` controls which background it's designed to sit on:
+//   "dark"  (default) — Explore page, sits on the brand's usual dark forest background
+//   "light" — Discover section on the homepage, sits on the light linen background
 
 import { useState } from "react";
 import type { Persona } from "./data";
@@ -9,14 +12,17 @@ type PersonaCardProps = {
   persona: Persona;
   onSelect: (persona: Persona) => void;
   isSelected?: boolean;
+  variant?: "dark" | "light";
 };
 
 export default function PersonaCard({
   persona,
   onSelect,
   isSelected = false,
+  variant = "dark",
 }: PersonaCardProps) {
   const [hovered, setHovered] = useState(false);
+  const isLight = variant === "light";
 
   return (
     <button
@@ -28,7 +34,9 @@ export default function PersonaCard({
         group relative w-full text-left border transition-all duration-300 cursor-pointer
         ${isSelected
           ? "border-terracotta bg-terracotta/5"
-          : "border-sand/10 bg-forest hover:border-sand/25"
+          : isLight
+            ? "border-forest/10 bg-linen hover:border-forest/25"
+            : "border-sand/10 bg-forest hover:border-sand/25"
         }
       `}
       aria-pressed={isSelected}
@@ -54,24 +62,27 @@ export default function PersonaCard({
         </p>
 
         {/* Name */}
-        <h3 className="font-serif text-xl text-sand mb-1 leading-tight">
+        <h3 className={`font-serif text-xl mb-1 leading-tight ${isLight ? "text-forest" : "text-sand"}`}>
           {persona.name}
         </h3>
 
         {/* Subtitle */}
-        <p className="font-sans text-xs tracking-wide text-sand/40 uppercase mb-4">
+        <p className={`font-sans text-xs tracking-wide uppercase mb-4 ${isLight ? "text-forest/45" : "text-sand/40"}`}>
           {persona.subtitle}
         </p>
 
         {/* Divider */}
-        <div className="w-8 h-px bg-sand/15 mb-4" />
+        <div className={`w-8 h-px mb-4 ${isLight ? "bg-forest/15" : "bg-sand/15"}`} />
 
         {/* Description excerpt */}
         <p
           className={`
-            font-sans text-sm text-sand/60 leading-relaxed line-clamp-3
+            font-sans text-sm leading-relaxed line-clamp-3
             transition-all duration-300
-            ${hovered || isSelected ? "text-sand/75" : ""}
+            ${isLight
+              ? (hovered || isSelected ? "text-forest/80" : "text-forest/60")
+              : (hovered || isSelected ? "text-sand/75" : "text-sand/60")
+            }
           `}
         >
           {persona.description}

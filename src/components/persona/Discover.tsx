@@ -111,7 +111,7 @@ export default function Discover({
                 <p className="font-sans text-xs tracking-widest uppercase text-terracotta mb-4">
                   While the Atelier Prepares
                 </p>
-                <p className="font-sans text-sm text-sand/55 leading-relaxed max-w-xl">
+                <p className="font-sans text-sm text-forest/65 leading-relaxed max-w-xl">
                   Your commission is in hand. Before you go — five questions
                   that take less than a minute, and will tell you something true
                   about how you dress.
@@ -122,7 +122,7 @@ export default function Discover({
                 <p className="font-sans text-xs tracking-widest uppercase text-terracotta mb-4">
                   Find Your Style
                 </p>
-                <p className="font-sans text-sm text-sand/55 leading-relaxed max-w-xl">
+                <p className="font-sans text-sm text-forest/65 leading-relaxed max-w-xl">
                   Five questions. No wrong answers. Move each slider, see your
                   personal style take shape.
                 </p>
@@ -137,13 +137,13 @@ export default function Discover({
               {SLIDERS.map((slider) => (
                 <div key={slider.key}>
                   {/* Question */}
-                  <p className="font-sans text-xs text-sand/40 leading-relaxed mb-4 italic">
+                  <p className="font-sans text-xs text-forest/50 leading-relaxed mb-4 italic">
                     {slider.description}
                   </p>
 
                   {/* Labels + track */}
                   <div className="flex items-center gap-4">
-                    <span className="font-sans text-xs tracking-wide uppercase text-sand/35 w-20 shrink-0 text-right leading-tight">
+                    <span className="font-sans text-xs tracking-wide uppercase text-forest/45 w-20 shrink-0 text-right leading-tight">
                       {slider.leftLabel}
                     </span>
 
@@ -153,11 +153,11 @@ export default function Discover({
                       {/* Custom track background */}
                       <div className="absolute inset-0 flex items-center pointer-events-none">
                         {/* Changed to h-[5px] */}
-                        <div className="w-full h-[5px] rounded-full bg-sand/20" />
+                        <div className="w-full h-[5px] rounded-full bg-forest/15" />
                       </div>
                       {/* Filled portion */}
                       <div
-                        className="absolute left-0 h-[5px] rounded-full bg-terracotta/60 pointer-events-none transition-all duration-150"
+                        className="absolute left-0 h-[5px] rounded-full bg-terracotta/70 pointer-events-none transition-all duration-150"
                         style={{ width: `${values[slider.key]}%` }}
                       />
                       {/* Input — thumb only, track fully transparent */}
@@ -192,7 +192,7 @@ export default function Discover({
                       />
                     </div>
 
-                    <span className="font-sans text-xs tracking-wide uppercase text-sand/35 w-20 shrink-0 leading-tight">
+                    <span className="font-sans text-xs tracking-wide uppercase text-forest/45 w-20 shrink-0 leading-tight">
                       {slider.rightLabel}
                     </span>
                   </div>
@@ -205,7 +205,7 @@ export default function Discover({
                   <button
                     type="button"
                     onClick={handleReveal}
-                    className="w-full border border-terracotta text-terracotta font-sans text-xs tracking-widest uppercase py-4 hover:bg-terracotta hover:text-forest transition-all duration-300"
+                    className="w-full border border-terracotta text-terracotta font-sans text-xs tracking-widest uppercase py-4 hover:bg-terracotta hover:text-linen transition-all duration-300"
                   >
                     Reveal My Persona
                   </button>
@@ -213,7 +213,7 @@ export default function Discover({
                   <button
                     type="button"
                     onClick={handleSeeProfile}
-                    className="w-full bg-terracotta text-forest font-sans text-xs tracking-widest uppercase py-4 hover:bg-sand transition-all duration-300"
+                    className="w-full bg-terracotta text-linen font-sans text-xs tracking-widest uppercase py-4 hover:bg-forest transition-all duration-300"
                   >
                     See Full Profile
                   </button>
@@ -225,22 +225,22 @@ export default function Discover({
             <div className="relative">
               {/* Pre-reveal: ghosted placeholder */}
               {!revealed && (
-                <div className="border border-sand/10 p-8 flex flex-col gap-4">
+                <div className="border border-forest/10 p-8 flex flex-col gap-4">
                   <div className="flex h-0.5 w-full">
-                    <div className="flex-1 bg-sand/10" />
-                    <div className="flex-1 bg-sand/7" />
-                    <div className="flex-1 bg-sand/5" />
+                    <div className="flex-1 bg-forest/10" />
+                    <div className="flex-1 bg-forest/7" />
+                    <div className="flex-1 bg-forest/5" />
                   </div>
-                  <div className="h-3 w-24 bg-sand/8 mt-2" />
-                  <div className="h-6 w-40 bg-sand/10" />
-                  <div className="h-2 w-32 bg-sand/6" />
-                  <div className="w-8 h-px bg-sand/10 my-2" />
+                  <div className="h-3 w-24 bg-forest/8 mt-2" />
+                  <div className="h-6 w-40 bg-forest/10" />
+                  <div className="h-2 w-32 bg-forest/6" />
+                  <div className="w-8 h-px bg-forest/10 my-2" />
                   <div className="space-y-2">
-                    <div className="h-2 w-full bg-sand/6" />
-                    <div className="h-2 w-5/6 bg-sand/6" />
-                    <div className="h-2 w-4/6 bg-sand/6" />
+                    <div className="h-2 w-full bg-forest/6" />
+                    <div className="h-2 w-5/6 bg-forest/6" />
+                    <div className="h-2 w-4/6 bg-forest/6" />
                   </div>
-                  <p className="font-sans text-xs text-sand/20 tracking-widest uppercase mt-4 text-center">
+                  <p className="font-sans text-xs text-forest/30 tracking-widest uppercase mt-4 text-center">
                     Move the sliders to begin
                   </p>
                 </div>
@@ -253,8 +253,9 @@ export default function Discover({
                     persona={currentPersona}
                     onSelect={handleSeeProfile}
                     isSelected
+                    variant="light"
                   />
-                  <p className="font-sans text-xs text-sand/30 mt-3 text-center tracking-wide">
+                  <p className="font-sans text-xs text-forest/45 mt-3 text-center tracking-wide">
                     Adjust the sliders to refine — or click the card to see your
                     full profile.
                   </p>
@@ -264,14 +265,14 @@ export default function Discover({
           </div>
 
           {/* Link to full Explore page */}
-          <div className="mt-12 pt-8 border-t border-sand/10 flex items-center justify-between">
-            <p className="font-sans text-xs text-sand/35 tracking-wide">
+          <div className="mt-12 pt-8 border-t border-forest/10 flex items-center justify-between">
+            <p className="font-sans text-xs text-forest/45 tracking-wide">
               Sixteen archetypes in total — each with a complete style profile,
               textile recommendation, and commission brief.
             </p>
             <a
               href="/style-persona"
-              className="font-sans text-xs tracking-widest uppercase text-sand/40 hover:text-terracotta transition-colors duration-200 underline underline-offset-4 shrink-0 ml-8"
+              className="font-sans text-xs tracking-widest uppercase text-forest/55 hover:text-terracotta transition-colors duration-200 underline underline-offset-4 shrink-0 ml-8"
             >
               Explore All →
             </a>
@@ -283,7 +284,7 @@ export default function Discover({
           <button
             type="button"
             onClick={handleBack}
-            className="font-sans text-xs tracking-widest uppercase text-sand/35 hover:text-sand/70 transition-colors duration-200 mb-8 flex items-center gap-2"
+            className="font-sans text-xs tracking-widest uppercase text-forest/45 hover:text-forest/80 transition-colors duration-200 mb-8 flex items-center gap-2"
           >
             ← Back
           </button>

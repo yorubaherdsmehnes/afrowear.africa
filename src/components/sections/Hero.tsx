@@ -13,6 +13,7 @@ export default function Hero() {
         alt="Bespoke two-piece gown featuring a hand-beaded white lace bodice with dramatic bell sleeves, seamlessly paired with a custom-tailored, floor-length purple velvet skirt adorned with silver floral motifs — Afrowear.Africa"
         fill
         priority
+        quality={95}
         sizes="100vw"
         // Mobile: portrait crop, centered. Desktop: landscape crop, framed on the torso.
         className="object-cover object-center md:object-[center_30%]"

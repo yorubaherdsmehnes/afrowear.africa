@@ -1,8 +1,7 @@
 "use client";
 // Horizontal auto-scrolling bento grid
-// Desktop: single row, tiles scroll left
-// Mobile:  two rows — top scrolls left, bottom scrolls right (feeds into each other)
-// All tiles are 4:3 ratio at both breakpoints, just smaller on mobile
+// Desktop and mobile: single row, tiles scroll left
+// All tiles are 4:5 (width:height) portrait ratio, just smaller on mobile
 
 import { useRef } from "react";
 import { useAutoScroll } from "@/hooks/useAutoScroll";
@@ -86,13 +85,13 @@ const TILES: GridTileType[] = [
   },
 ];
 
-// 4:3 tile dimensions
-// Desktop: 320px wide × 240px tall
-// Mobile:  160px wide × 120px tall
+// 4:5 (width:height) portrait tile dimensions
+// Desktop: 320px wide × 400px tall
+// Mobile:  160px wide × 200px tall
 const DESKTOP_W = 320;
-const DESKTOP_H = 240;
+const DESKTOP_H = 400;
 const MOBILE_W = 160;
-const MOBILE_H = 120;
+const MOBILE_H = 200;
 
 function ScrollRow({
   direction,
@@ -143,13 +142,8 @@ export default function Grid() {
         />
       </div>
 
-      {/* Mobile: two rows, opposite directions */}
-      <div className="md:hidden flex flex-col gap-3">
-        <ScrollRow
-          direction="right"
-          tileWidth={MOBILE_W}
-          tileHeight={MOBILE_H}
-        />
+      {/* Mobile: single row scrolling left, same direction as desktop */}
+      <div className="md:hidden">
         <ScrollRow
           direction="left"
           tileWidth={MOBILE_W}

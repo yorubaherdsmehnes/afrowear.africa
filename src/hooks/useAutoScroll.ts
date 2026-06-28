@@ -12,25 +12,36 @@ export function useAutoScroll(
   baseSpeed  = 0.5,
   boostSpeed = 2,
   direction: 'left' | 'right' = 'left',
+  paused = false,
 ) {
   const speed        = useRef(baseSpeed)
   const rafId        = useRef<number>(0)
   const boostTimeout = useRef<ReturnType<typeof setTimeout>>()
   const easeTimeout  = useRef<ReturnType<typeof setInterval>>()
+  const pausedRef     = useRef(paused)
+
+  // Keep the latest paused flag available inside the running rAF loop
+  // without needing to restart the effect (which would re-attach listeners
+  // and could jump scroll position) every time it changes.
+  useEffect(() => {
+    pausedRef.current = paused
+  }, [paused])
 
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
 
     const tick = () => {
-      if (direction === 'left') {
-        el.scrollLeft += speed.current
-        // Seamless loop: reset when we've scrolled through the first copy
-        if (el.scrollLeft >= el.scrollWidth / 2) el.scrollLeft = 0
-      } else {
-        el.scrollLeft -= speed.current
-        // Seamless loop: reset from the left edge back to the midpoint
-        if (el.scrollLeft <= 0) el.scrollLeft = el.scrollWidth / 2
+      if (!pausedRef.current) {
+        if (direction === 'left') {
+          el.scrollLeft += speed.current
+          // Seamless loop: reset when we've scrolled through the first copy
+          if (el.scrollLeft >= el.scrollWidth / 2) el.scrollLeft = 0
+        } else {
+          el.scrollLeft -= speed.current
+          // Seamless loop: reset from the left edge back to the midpoint
+          if (el.scrollLeft <= 0) el.scrollLeft = el.scrollWidth / 2
+        }
       }
       rafId.current = requestAnimationFrame(tick)
     }

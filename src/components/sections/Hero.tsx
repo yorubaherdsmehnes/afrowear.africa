@@ -27,7 +27,7 @@ export default function Hero() {
           <br />
           <em className="text-terracotta not-italic">Provenance.</em>
         </h1>
-        <p className="font-sans text-sm uppercase tracking-widest text-sand/60 mt-4 mb-0">
+        <p className="font-sans text-sm uppercase tracking-widest text-sand/60 mt-4">
           Bespoke African Occasion Wear — By Commission Only
         </p>
       </div>

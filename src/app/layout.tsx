@@ -18,7 +18,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: 'Afrowear.Africa — Bespoke African Fashion, Made For You',
-  description: 'Commission bespoke African occasion wear from Lagos and Abuja. Custom Ankara, Aso Oke, silk-lace and more. Share your vision, receive your piece in 2–6 weeks.',
+  description: 'Commission bespoke African occasion wear from Lagos and Abuja. Custom Ankara, Aso Oke, silk-lace and more. Share your vision,  2–6 weeks.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://afrowear.africa'),
   // ... [Keep your existing OpenGraph/Twitter config here]
 }

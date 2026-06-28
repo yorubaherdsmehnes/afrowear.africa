@@ -3,8 +3,8 @@
 export default function ScrollIndicator() {
   return (
     <div className="absolute bottom-[90px] left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-      <span className="font-sans text-xs uppercase tracking-widest text-sand/40">Scroll</span>
-      <div className="w-px h-12 bg-sand/20 animate-pulse" />
+      <span className="font-sans text-xs uppercase tracking-widest text-terracotta/60">Scroll</span>
+      <div className="w-px h-15 bg-terracotta/50 animate-pulse" />
     </div>
   )
 }

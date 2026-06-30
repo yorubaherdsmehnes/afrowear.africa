@@ -2,6 +2,7 @@
 import type { Metadata } from 'next'
 import { Playfair_Display, Inter } from 'next/font/google'
 import { GoogleAnalytics } from '@next/third-parties/google'
+import ScrollDepthTracker from '@/components/analytics/ScrollDepthTracker'
 import './globals.css'
 
 const playfair = Playfair_Display({
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
       <body>
         {children}
+        <ScrollDepthTracker />
       </body>
       
       {/* 

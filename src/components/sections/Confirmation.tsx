@@ -1,4 +1,5 @@
 import Discover from "../persona/Discover";
+import { trackClick } from "@/lib/analytics";
 
 // Shown in-place after successful form submission
 export default function Confirmation() {
@@ -13,6 +14,7 @@ export default function Confirmation() {
         href="https://instagram.com/afrowear.africa"
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackClick('Instagram', 'Confirmation Screen')}
         className="font-sans text-xs uppercase tracking-widest text-terracotta hover:text-sand transition-colors"
       >
         Follow our work on Instagram →

@@ -1,12 +1,19 @@
 'use client'
 
 import { sendGAEvent } from "@next/third-parties/google";
+import { trackClick } from "@/lib/analytics";
 
 // Fullscreen mobile drawer — toggled by hamburger in Navbar on small screens
 export default function MobileNav({ onClose }: { onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-50 bg-forest flex flex-col items-center justify-center gap-8">
-      <button onClick={onClose} className="absolute top-6 right-6 text-sand/60 font-sans text-sm uppercase tracking-widest">
+      <button
+        onClick={() => {
+          trackClick('Close', 'Mobile Hamburger Menu')
+          onClose()
+        }}
+        className="absolute top-6 right-6 text-sand/60 font-sans text-sm uppercase tracking-widest"
+      >
         Close
       </button>
       <a 

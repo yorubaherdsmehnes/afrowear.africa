@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import type { GridTile as GridTileType } from '@/types'
+import { trackMediaInteraction } from '@/lib/analytics'
 
 interface LightboxProps {
   tile: GridTileType
@@ -24,6 +25,7 @@ export default function Lightbox({ tile, index, total, onClose, onNext, onPrev }
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     closeBtnRef.current?.focus()
+    trackMediaInteraction(tile.alt || tile.id, 'open', 'Grid Lightbox')
     return () => {
       document.body.style.overflow = previousOverflow
     }
@@ -67,6 +69,7 @@ export default function Lightbox({ tile, index, total, onClose, onNext, onPrev }
         type="button"
         onClick={(e) => {
           e.stopPropagation()
+          trackMediaInteraction(tile.alt || tile.id, 'close', 'Grid Lightbox')
           onClose()
         }}
         aria-label="Close"
@@ -81,6 +84,7 @@ export default function Lightbox({ tile, index, total, onClose, onNext, onPrev }
             type="button"
             onClick={(e) => {
               e.stopPropagation()
+              trackMediaInteraction(tile.alt || tile.id, 'prev', 'Grid Lightbox')
               onPrev()
             }}
             aria-label="Previous look"
@@ -92,6 +96,7 @@ export default function Lightbox({ tile, index, total, onClose, onNext, onPrev }
             type="button"
             onClick={(e) => {
               e.stopPropagation()
+              trackMediaInteraction(tile.alt || tile.id, 'next', 'Grid Lightbox')
               onNext()
             }}
             aria-label="Next look"

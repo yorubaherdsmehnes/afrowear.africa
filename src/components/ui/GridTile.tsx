@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { GridTile as GridTileType } from '@/types'
+import { trackClick } from '@/lib/analytics'
 
 export default function GridTile({
   tile,
@@ -37,7 +38,10 @@ export default function GridTile({
     return (
       <button
         type="button"
-        onClick={() => tile.src && onOpen?.(tile.id)}
+        onClick={() => {
+          trackClick(tile.alt || `Tile ${tile.id}`, 'Grid')
+          tile.src && onOpen?.(tile.id)
+        }}
         aria-label={tile.alt ? `View full image — ${tile.alt}` : 'View full image'}
         className="relative h-full w-full overflow-hidden group block text-left cursor-pointer"
       >

@@ -1,6 +1,81 @@
 // lib/analytics.ts
 import { sendGAEvent } from '@next/third-parties/google'
 
+// ─────────────────────────────────────────────────────────────────────────
+// GENERIC EVENT HELPERS
+// Use these for ad-hoc tracking anywhere in the app. Named, purpose-built
+// events (below) should be preferred where they already exist.
+// ─────────────────────────────────────────────────────────────────────────
+
+/** Low-level passthrough — fires any named GA4 event with arbitrary params. */
+export const trackEvent = (eventName: string, params: Record<string, unknown> = {}) => {
+  if (typeof window === 'undefined') return
+  sendGAEvent('event', eventName, params)
+}
+
+/**
+ * Tracks ANY click — buttons, links, icons — identified by visible text/name.
+ * `location` should describe where on the page this lives (e.g. "Hero",
+ * "Navbar", "Grid Tile 3") so the same label (e.g. "Find Your Style") can be
+ * distinguished across multiple placements.
+ */
+export const trackClick = (
+  label: string,
+  location: string,
+  extra: Record<string, unknown> = {},
+) => {
+  trackEvent('click', {
+    click_label: label,
+    click_location: location,
+    ...extra,
+  })
+}
+
+/** Scroll depth milestones — fired once each per session as the user passes 25/50/75/100%. */
+export const trackScrollDepth = (percent: 25 | 50 | 75 | 100) => {
+  trackEvent('scroll_depth', { percent_scrolled: percent })
+}
+
+/** Fired the first time a named section enters the viewport. */
+export const trackSectionView = (sectionName: string) => {
+  trackEvent('section_view', { section_name: sectionName })
+}
+
+/** Fired when a named section leaves the viewport (or on unmount), with dwell time. */
+export const trackSectionDwell = (sectionName: string, seconds: number) => {
+  if (seconds < 1) return // ignore noise from rapid scroll-throughs
+  trackEvent('section_dwell', {
+    section_name: sectionName,
+    dwell_seconds: Math.round(seconds),
+  })
+}
+
+/** Generic form-field interaction tracker — focus, blur, or step change. */
+export const trackFormInteraction = (
+  formName: string,
+  fieldOrStep: string,
+  action: 'focus' | 'blur' | 'step_change' | 'error',
+) => {
+  trackEvent('form_interaction', {
+    form_name: formName,
+    field: fieldOrStep,
+    action,
+  })
+}
+
+/** Generic media/carousel/lightbox interaction tracker. */
+export const trackMediaInteraction = (
+  mediaName: string,
+  action: 'open' | 'close' | 'next' | 'prev' | 'autoplay_pause',
+  location: string,
+) => {
+  trackEvent('media_interaction', {
+    media_name: mediaName,
+    action,
+    location,
+  })
+}
+
 // 1. Track when a user views a specific bespoke option (e.g., Aso Oke, Silk-lace)
 export const trackViewItem = (itemName: string, category: string, priceEstimate: number) => {
   sendGAEvent('event', 'view_item', {

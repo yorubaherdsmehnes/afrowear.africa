@@ -7,7 +7,7 @@ import StepVision   from './StepVision'
 import Button       from '@/components/ui/Button'
 import { isValidName, isValidPhoneNumber, isValidVision } from '@/components/form/validation'
 import type { FormStep } from '@/types'
-import { trackGenerateLead } from '@/lib/analytics' // <-- Premium Tracking Import
+import { trackGenerateLead, trackFormInteraction } from '@/lib/analytics' // <-- Premium Tracking Import
 
 interface Props {
   currentStep: FormStep
@@ -75,7 +75,12 @@ export default function ConciergeForm({ currentStep, onStepChange }: Props) {
         <StepName
           value={name}
           onChange={setName}
-          onNext={() => isValidName(name) && onStepChange('phone')}
+          onNext={() => {
+            if (isValidName(name)) {
+              trackFormInteraction('Concierge Form', 'name', 'step_change')
+              onStepChange('phone')
+            }
+          }}
         />
       )}
       {currentStep === 'phone' && (
@@ -83,7 +88,12 @@ export default function ConciergeForm({ currentStep, onStepChange }: Props) {
           name={name}
           value={contactNumber}
           onChange={setContactNumber}
-          onNext={() => isValidPhoneNumber(contactNumber) && onStepChange('vision')}
+          onNext={() => {
+            if (isValidPhoneNumber(contactNumber)) {
+              trackFormInteraction('Concierge Form', 'phone', 'step_change')
+              onStepChange('vision')
+            }
+          }}
         />
       )}
       {currentStep === 'vision' && (
@@ -95,7 +105,10 @@ export default function ConciergeForm({ currentStep, onStepChange }: Props) {
       <div className="flex justify-between items-center mt-4">
         {stepIndex > 1 ? (
           <button
-            onClick={() => onStepChange(stepIndex === 2 ? 'name' : 'phone')}
+            onClick={() => {
+              trackFormInteraction('Concierge Form', currentStep, 'step_change')
+              onStepChange(stepIndex === 2 ? 'name' : 'phone')
+            }}
             className="font-sans text-xs uppercase tracking-widest text-sand/40 hover:text-sand transition-colors"
           >
             Back
